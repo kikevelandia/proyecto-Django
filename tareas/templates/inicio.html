@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h1 class="mt-3">Listado de Tareas</h1>
+        <div class="container mt-5 mb-5 ">
+        <div class="table-responsive rounded-3  ">
+            <table class="table table-info table-striped text-center">
+            <thead>
+                <tr>
+                <th scope="col">Titulo</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">fecha</th>
+                <th scope="col">Accion</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for tarea in tareas %}
+                <tr>
+                <td scope="row">{{ tarea.Titulo }}</td>
+                <td>{{ tarea.descripcion }}</td>
+                <td>{{ tarea.fecha }}</td>
+                <td>
+                    <a href="{% url 'detalleTarea' tarea.id  %}" class="btn btn-warning">editar</a>
+                    <form action="{% url 'eliminarTarea' tarea.id %}" method= 'POST'>
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-danger" value="Eliminar"/>
+                    </form>
+                </td>
+            </tr>    
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+{% endblock %}
